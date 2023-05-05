@@ -5,6 +5,7 @@ Feature: Planning a trip in different scenarios
     And user picks route from "Frankfurt (FRA)" to "Munich (MUC)"
     When user picks 2 adults for travelers
     And user picks date "22-05-2023"
+    And user clicks search button
     When user picks "Light Economy" on the prices
     And user picks seat "22A" or "window seat" if not available
     When user picks "Cash" payment
