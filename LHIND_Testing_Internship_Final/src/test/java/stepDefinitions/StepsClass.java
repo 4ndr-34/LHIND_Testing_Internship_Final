@@ -4,10 +4,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import utilities.ConfigurationReader;
 
 public class StepsClass {
+
     @Given("user is on landing page")
     public void userIsOnLandingPage() {
+        Hooks.driver.get(ConfigurationReader.getProperty("baseurl"));
     }
 
     @When("user picks one way flight option")
