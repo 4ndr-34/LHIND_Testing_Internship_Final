@@ -6,7 +6,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "src/test/resources/features/FlightPlanning.feature",
-        glue = "java.stepDefinitions.StepsClass"
+        glue = {"stepDefinitions"}
 )
 public class TestRunner extends AbstractTestNGCucumberTests {
 }
