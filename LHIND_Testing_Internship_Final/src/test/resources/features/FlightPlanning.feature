@@ -2,7 +2,7 @@ Feature: Planning a trip in different scenarios
   Scenario: One Way Trip
     Given user is on landing page
     When user picks one way flight option
-    And user picks route from "Frankfurt (FRA)" to "Munich (MUC)"
+    And user picks route from "Barcelona (" to "Munich (MUC)"
     When user picks 2 adults for travelers
     And user picks date "22-05-2023"
     And user clicks search button
