@@ -1,36 +1,62 @@
 package stepDefinitions;
 
+import elements.LandingPageElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import pages.LandingPage;
 import utilities.ConfigurationReader;
+
+import java.util.Arrays;
 
 public class StepsClass {
 
+    LandingPage landingPage = new LandingPage();
+    LandingPageElements landingPageElements = new LandingPageElements();
+
     @Given("user is on landing page")
     public void userIsOnLandingPage() {
+        System.out.println("--STARTING TEST--");
+        System.out.println("Going to Landing Page.");
         Hooks.driver.get(ConfigurationReader.getProperty("baseurl"));
     }
 
     @When("user picks one way flight option")
     public void userPicksOneWayFlightOption() {
+        System.out.println("Selecting One-Way flight option.");
+        landingPage.clickOneWay();
     }
 
     @And("user picks route from {string} to {string}")
     public void userPicksRouteFromTo(String arg0, String arg1) {
+        System.out.println("Selecting Departure and Destination airport.");
+        landingPage.setDepartureAirport(arg0);
+        landingPage.setDestinationAirport(arg1);
+    }
+
+    @And("user picks date")
+    public void userPicksDate() {
+        System.out.println("Picking departure date");
+        landingPage.setDepartureDate();
     }
 
     @When("user picks {int} adults for travelers")
     public void userPicksAdultsForTravelers(int arg0) {
+        System.out.println("Selecting number of adults");
+        landingPage.setNumberOfAdults(arg0);
     }
 
-    @And("user picks date {string}")
-    public void userPicksDate(String arg0) {
+    @When("user picks {string} cabin preference")
+    public void userPicksCabinPreference(String arg0) {
+        System.out.println("Selecting cabin preference");
+        landingPage.setCabinPreference(arg0);
     }
 
     @And("user clicks search button")
     public void userClicksSearchButton() {
+        System.out.println("Clicking Search Button");
+        landingPage.clickSearchBtn();
     }
 
     @When("user picks {string} on the prices")
@@ -51,6 +77,7 @@ public class StepsClass {
 
     @When("user picks return flight option and {string} under advanced options")
     public void userPicksReturnFlightOptionAndUnderAdvancedOptions(String arg0) {
+        landingPage.clickRoundTrip();
     }
 
     @And("user picks route from {string}Budapest \\(BUD)\"")
@@ -83,6 +110,7 @@ public class StepsClass {
 
     @When("user picks multileg flight option and {string} under advanced options")
     public void userPicksMultilegFlightOptionAndUnderAdvancedOptions(String arg0) {
+        landingPage.clickMultiDestinations();
     }
 
     @And("user picks route from {string} to {string} and then {string} and then {string}")
@@ -104,6 +132,7 @@ public class StepsClass {
     @When("user picks accommodation and max price is {int} a night and a max total of {int} on the list")
     public void userPicksAccommodationAndMaxPriceIsANightAndAMaxTotalOfOnTheList(int arg0, int arg1) {
     }
+
 
 
 }

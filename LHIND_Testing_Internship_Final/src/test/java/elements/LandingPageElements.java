@@ -6,6 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import utilities.BaseInformation;
 
+import java.util.List;
+
 public class LandingPageElements {
 
     public LandingPageElements() {
@@ -30,8 +32,17 @@ public class LandingPageElements {
     @FindBy(css = "#departure_date")
     public WebElement departureDateField;
 
+    @FindBy(css = "td[data-month='4']>a")
+    public List<WebElement> availableMayDepartureDates;
+
+    @FindBy(css = "a[data-handler='next']")
+    public WebElement nextMonthBtn;
+
     @FindBy(css = "#return_date")
     public WebElement returnDateField;
+
+    @FindBy(css = "td[data-month='5']>a")
+    public List<WebElement> availableJuneReturnDates;
 
     @FindBy(css = "#adult-counter")
     public WebElement adultsDropdown;

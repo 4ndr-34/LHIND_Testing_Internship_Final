@@ -56,8 +56,6 @@ public class WaitUtils {
         return waitForElementVisibleWithCustomTime(defaultDuration.toMillis(), locator);
     }
 
-
-
     public void waitForAttributePresentWithCustomWaitTime(long mills, WebElement element,
                                                           String nameOfAttribute) {
         int milsWaitStep = 500;
