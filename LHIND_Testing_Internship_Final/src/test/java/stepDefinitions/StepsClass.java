@@ -1,19 +1,21 @@
 package stepDefinitions;
 
 import elements.LandingPageElements;
+import elements.oneWay.OneWayFlightSearchPageElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LandingPage;
+import pages.oneWay.OneWayFlightSearchPage;
 import utilities.ConfigurationReader;
-
-import java.util.Arrays;
 
 public class StepsClass {
 
     LandingPage landingPage = new LandingPage();
     LandingPageElements landingPageElements = new LandingPageElements();
+    OneWayFlightSearchPageElements oneWayFlightSearchPageElements = new OneWayFlightSearchPageElements();
+    OneWayFlightSearchPage oneWayFlightSearchPage =  new OneWayFlightSearchPage();
 
     @Given("user is on landing page")
     public void userIsOnLandingPage() {
@@ -61,6 +63,10 @@ public class StepsClass {
 
     @When("user picks {string} on the prices")
     public void userPicksOnThePrices(String arg0) {
+        System.out.println("Selecting cheapest Flight option");
+        oneWayFlightSearchPage.clickOnFirstFlight();
+        System.out.println(oneWayFlightSearchPageElements.BookNowBtns.size());
+        oneWayFlightSearchPage.clickOnCheapestFlightOption();
     }
 
     @And("user picks seat {string} or {string} if not available")
