@@ -26,7 +26,7 @@ public class WebElementUtils {
     }
 
     public void javaScriptClick(WebElement webElement) {
-        waitUtils.waitForElementClickable(webElement);
+        waitUtils.waitForElementClickableWithCustomTime(10000,webElement);
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].click();", webElement);
     }

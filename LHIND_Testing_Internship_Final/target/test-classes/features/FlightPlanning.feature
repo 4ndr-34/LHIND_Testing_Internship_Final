@@ -11,6 +11,7 @@ Feature: Planning a trip in different scenarios
 
 
     When user picks "Light Economy" on the prices
+    And user sends all necessary credentials
     And user picks seat "22A" or "window seat" if not available
     When user picks "Cash" payment
     Then confirms "booking reference number" and "Please, write down or remember this number" is displayed

@@ -11,8 +11,19 @@ public class OneWayFlightConfirmationPageElements {
         PageFactory.initElements(BaseInformation.getDriver(), this);
     }
 
-    @FindBy(css = "div.ref_num_btn")
-    public WebElement bookingReferenceTab;
+    @FindBy(css = ".ref_num_btn>h2")
+    public WebElement textConfirmationHeader;
+
+    String expectedTexts = "\n" +
+            "        booking reference number\n" +
+            "        " + "\n" +
+            "\n" +
+            "        Please, write down or remember this number\n" +
+            "\n" +
+            "    ";
+
+    @FindBy(css = ".ref_num_btn>h2>span")
+    public WebElement bookingReferenceNumber;
 
 
 }

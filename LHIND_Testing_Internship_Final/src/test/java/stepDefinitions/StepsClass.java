@@ -1,12 +1,14 @@
 package stepDefinitions;
 
 import elements.LandingPageElements;
+import elements.oneWay.OneWayFlightPassengerInfoPageElements;
 import elements.oneWay.OneWayFlightSearchPageElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import pages.LandingPage;
+import pages.oneWay.OneWayFlightPassengerInfoPage;
 import pages.oneWay.OneWayFlightSearchPage;
 import utilities.ConfigurationReader;
 
@@ -16,7 +18,8 @@ public class StepsClass {
     LandingPageElements landingPageElements = new LandingPageElements();
     OneWayFlightSearchPageElements oneWayFlightSearchPageElements = new OneWayFlightSearchPageElements();
     OneWayFlightSearchPage oneWayFlightSearchPage =  new OneWayFlightSearchPage();
-
+    OneWayFlightPassengerInfoPage oneWayFlightPassengerInfoPage = new OneWayFlightPassengerInfoPage();
+    OneWayFlightPassengerInfoPageElements oneWayFlightPassengerInfoPageElements = new OneWayFlightPassengerInfoPageElements();
     @Given("user is on landing page")
     public void userIsOnLandingPage() {
         System.out.println("--STARTING TEST--");
@@ -65,8 +68,32 @@ public class StepsClass {
     public void userPicksOnThePrices(String arg0) {
         System.out.println("Selecting cheapest Flight option");
         oneWayFlightSearchPage.clickOnFirstFlight();
-        System.out.println(oneWayFlightSearchPageElements.BookNowBtns.size());
         oneWayFlightSearchPage.clickOnCheapestFlightOption();
+    }
+
+    @And("user sends all necessary credentials")
+    public void userSendsAllNecessaryCredentials() {
+        System.out.println("Adding credentials of adult 1");
+        oneWayFlightPassengerInfoPage.setAdult1Credentials(
+                ConfigurationReader.getProperty("adult1FirstName"),
+                ConfigurationReader.getProperty("adult1LastName"),
+                ConfigurationReader.getProperty("adult1Email"),
+                ConfigurationReader.getProperty("adult1Email"),
+                ConfigurationReader.getProperty("adult1Phone"),
+                ConfigurationReader.getProperty("adult1BirthDate"),
+                ConfigurationReader.getProperty("adult1BirthMonth"),
+                ConfigurationReader.getProperty("adult1BirthYear"));
+
+        System.out.println(oneWayFlightPassengerInfoPageElements.accordionNonActiveTitles.size());
+        oneWayFlightPassengerInfoPage.clickOnAdult2Accordion();
+
+        System.out.println("Adding credentials of adult 2");
+        oneWayFlightPassengerInfoPage.setAdult2Credentials(
+                ConfigurationReader.getProperty("adult2FirstName"),
+                ConfigurationReader.getProperty("adult2LastName"),
+                ConfigurationReader.getProperty("adult2BirthDate"),
+                ConfigurationReader.getProperty("adult2BirthMonth"),
+                ConfigurationReader.getProperty("adult2BirthYear"));
     }
 
     @And("user picks seat {string} or {string} if not available")

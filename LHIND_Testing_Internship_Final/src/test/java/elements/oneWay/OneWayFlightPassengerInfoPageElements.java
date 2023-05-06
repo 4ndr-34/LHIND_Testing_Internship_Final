@@ -43,8 +43,10 @@ public class OneWayFlightPassengerInfoPageElements {
     @FindBy(css = "#bdate_y_0")
     public WebElement adultBirthYear1;
 
-    @FindBy(css = "div[class='title']")
+    @FindBy(css = "div[name='paxDetails']>div[class=' title']>h4")
     public List<WebElement> accordionNonActiveTitles;
+
+    public String headerText = "Passenger 2 Adult ";
 
     @FindBy(css = "#fname_1")
     public WebElement adultFirstNameField2;
@@ -93,7 +95,4 @@ public class OneWayFlightPassengerInfoPageElements {
 
     @FindBy(css = "#btnCreateBooking")
     public WebElement confirmBookingBtn;
-
-
-
 }
