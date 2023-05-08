@@ -1,25 +1,29 @@
 package stepDefinitions;
 
 import elements.LandingPageElements;
-import elements.oneWay.OneWayFlightPassengerInfoPageElements;
-import elements.oneWay.OneWayFlightSearchPageElements;
+import elements.FlightSearchPageElements;
+import elements.FlightPassengerInfoPageElements;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.testng.Assert;
 import pages.LandingPage;
-import pages.oneWay.OneWayFlightPassengerInfoPage;
-import pages.oneWay.OneWayFlightSearchPage;
+import pages.FlightConfirmationPage;
+import pages.FlightPassengerInfoPage;
+import pages.FlightSearchPage;
 import utilities.ConfigurationReader;
 
 public class StepsClass {
 
     LandingPage landingPage = new LandingPage();
     LandingPageElements landingPageElements = new LandingPageElements();
-    OneWayFlightSearchPageElements oneWayFlightSearchPageElements = new OneWayFlightSearchPageElements();
-    OneWayFlightSearchPage oneWayFlightSearchPage =  new OneWayFlightSearchPage();
-    OneWayFlightPassengerInfoPage oneWayFlightPassengerInfoPage = new OneWayFlightPassengerInfoPage();
-    OneWayFlightPassengerInfoPageElements oneWayFlightPassengerInfoPageElements = new OneWayFlightPassengerInfoPageElements();
+    FlightSearchPageElements flightSearchPageElements = new FlightSearchPageElements();
+    FlightSearchPage flightSearchPage =  new FlightSearchPage();
+    FlightPassengerInfoPage flightPassengerInfoPage = new FlightPassengerInfoPage();
+    FlightPassengerInfoPageElements flightPassengerInfoPageElements = new FlightPassengerInfoPageElements();
+    FlightConfirmationPage flightConfirmationPage = new FlightConfirmationPage();
+
     @Given("user is on landing page")
     public void userIsOnLandingPage() {
         System.out.println("--STARTING TEST--");
@@ -64,17 +68,17 @@ public class StepsClass {
         landingPage.clickSearchBtn();
     }
 
-    @When("user picks {string} on the prices")
-    public void userPicksOnThePrices(String arg0) {
+    @When("user picks {string} on the prices when on {string}")
+    public void userPicksOnThePrices(String arg0, String arg1) {
         System.out.println("Selecting cheapest Flight option");
-        oneWayFlightSearchPage.clickOnFirstFlight();
-        oneWayFlightSearchPage.clickOnCheapestFlightOption();
+        flightSearchPage.clickOnFlightLink(arg1);
+        flightSearchPage.clickOnCheapestFlightOption();
     }
 
     @And("user sends all necessary credentials")
     public void userSendsAllNecessaryCredentials() {
         System.out.println("Adding credentials of adult 1");
-        oneWayFlightPassengerInfoPage.setAdult1Credentials(
+        flightPassengerInfoPage.setAdult1Credentials(
                 ConfigurationReader.getProperty("adult1FirstName"),
                 ConfigurationReader.getProperty("adult1LastName"),
                 ConfigurationReader.getProperty("adult1Email"),
@@ -84,11 +88,10 @@ public class StepsClass {
                 ConfigurationReader.getProperty("adult1BirthMonth"),
                 ConfigurationReader.getProperty("adult1BirthYear"));
 
-        System.out.println(oneWayFlightPassengerInfoPageElements.accordionNonActiveTitles.size());
-        oneWayFlightPassengerInfoPage.clickOnAdult2Accordion();
+        flightPassengerInfoPage.clickOnAdult2Accordion();
 
         System.out.println("Adding credentials of adult 2");
-        oneWayFlightPassengerInfoPage.setAdult2Credentials(
+        flightPassengerInfoPage.setAdult2Credentials(
                 ConfigurationReader.getProperty("adult2FirstName"),
                 ConfigurationReader.getProperty("adult2LastName"),
                 ConfigurationReader.getProperty("adult2BirthDate"),
@@ -98,31 +101,47 @@ public class StepsClass {
 
     @And("user picks seat {string} or {string} if not available")
     public void userPicksSeatOrIfNotAvailable(String arg0, String arg1) {
+        System.out.println("Selecting passenger seats");
+        //oneWayFlightPassengerInfoPage.selectSeats(arg0, arg1);
     }
 
-    @When("user picks {string} payment")
-    public void userPicksPayment(String arg0) {
+    @When("user picks Cash payment")
+    public void userPicksCashPayment() {
+        System.out.println("Selecting Cash Payment");
+        flightPassengerInfoPage.clickCashPayment();
+        flightPassengerInfoPage.sendKeysToCVVField(ConfigurationReader.getProperty("CVVcard"));
+        flightPassengerInfoPage.clickAgreeTermsAndConditions();
+        System.out.println("Confirming Booking");
+        flightPassengerInfoPage.clickConfirmBookingBtn();
     }
 
     @Then("confirms {string} and {string} is displayed")
     public void confirmsAndIsDisplayed(String arg0, String arg1) {
+        System.out.println("Verifying messages are displayed.");
+        //System.out.println(oneWayFlightConfirmationPage.printMessagesDisplayed());
+        Assert.assertTrue(flightConfirmationPage.verifyMessagesAreDisplayed());
+        System.out.println("The one way flight booking reference number is: " +
+                flightConfirmationPage.printBookingNumber());
     }
 
     @When("user picks return flight option and {string} under advanced options")
     public void userPicksReturnFlightOptionAndUnderAdvancedOptions(String arg0) {
         landingPage.clickRoundTrip();
-    }
-
-    @And("user picks route from {string}Budapest \\(BUD)\"")
-    public void userPicksRouteFromBudapestBUD(String arg0) throws Throwable {    // Write code here that turns the phrase above into concrete actions    throw new cucumber.api.PendingException();}
+        landingPage.clickAdvancedOptions();
+        landingPage.selectFlightType(arg0);
     }
 
     @When("user picks {int} adults and {int} infant for travelers")
     public void userPicksAdultsAndInfantForTravelers(int arg0, int arg1) {
+        System.out.println("Selecting adults and infants for passengers");
+        landingPage.setNumberOfAdults(arg0);
+        landingPage.setNumberOfInfants(arg1);
     }
 
-    @And("user picks date {string} for departure and {string} for return")
-    public void userPicksDateForDepartureAndForReturn(String arg0, String arg1) {
+    @And("user picks date for departure and for return")
+    public void userPicksDateForDepartureAndForReturn() {
+        landingPage.setDepartureDate();
+        landingPage.setReturnDate();
     }
 
     @And("user fills all the details for travelers")
@@ -141,7 +160,7 @@ public class StepsClass {
     public void userVerifiesAllTheTravelersNamesAreDisplayedAsExpected() {
     }
 
-    @When("user picks multileg flight option and {string} under advanced options")
+    @When("user picks multi-leg flight option and {string} under advanced options")
     public void userPicksMultilegFlightOptionAndUnderAdvancedOptions(String arg0) {
         landingPage.clickMultiDestinations();
     }

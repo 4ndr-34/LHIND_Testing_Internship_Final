@@ -77,16 +77,24 @@ public class LandingPage {
     }
 
     public void setReturnDate() {
+        //opens calendar dropdown
         basePageObject
                 .getWaitUtils()
                 .waitForElementClickable(landingPageElements.returnDateField)
                 .click();
+        //goes to next month calendar
+        basePageObject
+                .getWaitUtils()
+                .waitForElementClickable(landingPageElements.nextMonthBtn)
+                .click();
 
+        //sets a random date of return
         Random random = new Random();
         basePageObject
                 .getWaitUtils()
-                .waitForElementClickable(landingPageElements.availableJuneReturnDates
-                        .get(random.nextInt(landingPageElements.availableJuneReturnDates.size() - 1)));
+                .waitForElementClickableWithCustomTime(5000, landingPageElements.availableJuneReturnDates
+                        .get(random.nextInt(landingPageElements.availableJuneReturnDates.size() - 1)))
+                .click();
     }
 
     public void setCabinPreference(String preference) {
@@ -133,13 +141,14 @@ public class LandingPage {
     }
 
     public void selectFlightType(String type) {
-        try {
+            basePageObject
+                    .getWebElementUtils()
+                            .javaScriptClick(landingPageElements.flightTypesDropdown);
+
             basePageObject
                     .getWebElementUtils()
                     .selectFromDropDownElementByVisibleText(landingPageElements.flightTypesDropdown, type);
-        } catch (Exception e) {
-            System.out.println("ERROR!" + e.getMessage());
-        }
+
     }
 
     public void setFirstPreferredAirline(String name) {

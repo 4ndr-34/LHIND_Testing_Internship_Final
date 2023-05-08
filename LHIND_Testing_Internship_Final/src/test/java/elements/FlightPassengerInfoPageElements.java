@@ -1,4 +1,4 @@
-package elements.oneWay;
+package elements;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,11 +7,14 @@ import utilities.BaseInformation;
 
 import java.util.List;
 
-public class OneWayFlightPassengerInfoPageElements {
+public class FlightPassengerInfoPageElements {
 
-    public OneWayFlightPassengerInfoPageElements() {
+    public FlightPassengerInfoPageElements() {
         PageFactory.initElements(BaseInformation.getDriver(), this);
     }
+
+    @FindBy(css = "#addCarTravelTypeDiv>button")
+    public WebElement addCarBtn;
 
     @FindBy(css = "#fname_0")
     public WebElement adultFirstNameField1;
@@ -44,9 +47,7 @@ public class OneWayFlightPassengerInfoPageElements {
     public WebElement adultBirthYear1;
 
     @FindBy(css = "div[name='paxDetails']>div[class=' title']>h4")
-    public List<WebElement> accordionNonActiveTitles;
-
-    public String headerText = "Passenger 2 Adult ";
+    public WebElement accordionNonActiveTitle;
 
     @FindBy(css = "#fname_1")
     public WebElement adultFirstNameField2;
@@ -72,17 +73,19 @@ public class OneWayFlightPassengerInfoPageElements {
     @FindBy(css = "#seatSelectionBtn")
     public WebElement seatSelectionBtn;
 
-    @FindBy(css = "li[class='pax-item']")
+    @FindBy(css = "div[data-tab='flight-tab-0'] li[data-paxnumber='1']")
     public WebElement otherPassengerSelectionTrigger;
 
-    @FindBy(css = "span[data-code='22A']")
-    public List<WebElement> firstAdultSeat;
+    //usuall there's two flight tabs in seat selection, so I had to choose the first flight and then the window seats
+    @FindBy(css = "div[data-tab='flight-tab-0'] span[class*='chargable'][data-code*='A']")
+    public List<WebElement> windowSideSeats;
 
-    @FindBy(css = "span[data-code='22B']")
-    public List<WebElement> secondAdultSeat;
+    //chose the seat next to the one from the first passenger
+    @FindBy(css = "div[data-tab='flight-tab-0'] span[class*='chargable'][data-code*='B']")
+    public List<WebElement> nextToWindowSideSeats;
 
-    @FindBy(css = "button.save-seats")
-    public List<WebElement> saveSeatsBtn;
+    @FindBy(css = "div[data-tab='flight-tab-0'] button[class*='save-seats']")
+    public WebElement saveSeatsBtn;
 
     @FindBy(css = "#B2CallMeRadioButton")
     public WebElement cashPaymentRadio;
