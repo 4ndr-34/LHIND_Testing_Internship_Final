@@ -29,6 +29,9 @@ public class LandingPageElements {
     @FindBy(css = "#destination_city")
     public WebElement destinationCityField;
 
+    @FindBy(css = "a[name='addLeg'][style='display: inline-block;']")
+    public WebElement addFlightBtn;
+
     @FindBy(css = "#departure_date")
     public WebElement departureDateField;
 
