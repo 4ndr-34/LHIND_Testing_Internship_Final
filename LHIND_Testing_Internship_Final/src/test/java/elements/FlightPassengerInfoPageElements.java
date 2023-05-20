@@ -77,11 +77,11 @@ public class FlightPassengerInfoPageElements {
     public WebElement otherPassengerSelectionTrigger;
 
     //usuall there's two flight tabs in seat selection, so I had to choose the first flight and then the window seats
-    @FindBy(css = "div[data-tab='flight-tab-0'] span[class*='chargable'][data-code*='A']")
+    @FindBy(css = "div[data-tab='flight-tab-0'] span[class*='available'][data-code*='A']")
     public List<WebElement> windowSideSeats;
 
     //chose the seat next to the one from the first passenger
-    @FindBy(css = "div[data-tab='flight-tab-0'] span[class*='chargable'][data-code*='B']")
+    @FindBy(css = "div[data-tab='flight-tab-0'] span[class*='available'][data-code*='B']")
     public List<WebElement> nextToWindowSideSeats;
 
     @FindBy(css = "div[data-tab='flight-tab-0'] button[class*='save-seats']")

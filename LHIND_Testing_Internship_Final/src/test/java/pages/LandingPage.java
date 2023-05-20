@@ -143,7 +143,7 @@ public class LandingPage {
     public void selectFlightType(String type) {
             basePageObject
                     .getWebElementUtils()
-                            .javaScriptClick(landingPageElements.flightTypesDropdown);
+                    .javaScriptClick(landingPageElements.flightTypesDropdown);
 
             basePageObject
                     .getWebElementUtils()

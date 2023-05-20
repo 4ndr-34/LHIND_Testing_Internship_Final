@@ -18,12 +18,8 @@ public class FlightSearchPageElements {
 
     @FindBy(css = "a[data-description='Bussines Class']")
     public List<WebElement> businessClassBtns;
-
     @FindBy(css = "a[data-description='Premium Class']")
     public List<WebElement> premiumClassBtns;
-
-
-
     @FindBy(xpath = "//div[contains(@class, 'non-mobile')]//button[@class = 'ui button red  ']")
     public List<WebElement> bookNowBtns;
 }

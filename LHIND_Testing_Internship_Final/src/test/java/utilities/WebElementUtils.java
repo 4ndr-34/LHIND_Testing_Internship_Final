@@ -121,12 +121,4 @@ public class WebElementUtils {
         }
     }
 
-    public void verifyColorMatches(WebElement element,String colorCode) {
-        try {
-            waitUtils.waitForElementVisible(element);
-            Assert.assertTrue((Color.fromString(element.getCssValue("color")).asHex()).equals(colorCode));
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
 }
